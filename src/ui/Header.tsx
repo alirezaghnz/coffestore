@@ -1,12 +1,10 @@
 import {
   Avatar,
   Box,
-  Button,
   Flex,
   Heading,
   Input,
   InputGroup,
-  Kbd,
   Spacer,
 } from "@chakra-ui/react";
 import { LuSearch } from "react-icons/lu";
@@ -31,7 +29,7 @@ export default function Header() {
           color="blackAlpha.900"
           borderColor="gray.100"
           startElement={<LuSearch />}
-          endElement={<Kbd>⌘K</Kbd>}
+          display={{ base: "none", sm: "block" }}
         >
           <Input
             bg="blackAlpha.200"

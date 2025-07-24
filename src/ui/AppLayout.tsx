@@ -13,9 +13,9 @@ export default function AppLayout() {
     >
       <Header />
       <Box overflow="scroll" bg="bg.subtle">
-        <main>
+        <Box pt="10">
           <Outlet />
-        </main>
+        </Box>
       </Box>
       <Footer />
     </Box>
