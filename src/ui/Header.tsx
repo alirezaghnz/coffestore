@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Box,
   Flex,
   Heading,
   Input,
@@ -11,38 +10,38 @@ import { LuSearch } from "react-icons/lu";
 
 export default function Header() {
   return (
-    <Box
+    <Flex
+      align="center"
+      justify="space-between"
+      w="100%"
+      h="150px"
       bg="yellow.50"
-      px={6}
-      py={9}
-      color="black"
       boxShadow="lg"
-      position="sticky"
+      py="10"
+      px="6"
     >
-      <Flex align="center">
-        <Heading dir="rtl" size="md">
-          The Best Coffe
-        </Heading>
-        <Spacer />
-        <InputGroup
-          flex="1"
-          color="blackAlpha.900"
-          borderColor="gray.100"
-          startElement={<LuSearch />}
-          display={{ base: "none", sm: "block" }}
-        >
-          <Input
-            bg="blackAlpha.200"
-            _placeholder={{ color: "blackAlpha.900" }}
-            placeholder="جستجو"
-          />
-        </InputGroup>
-
-        <Spacer />
-        <Avatar.Root>
-          <Avatar.Fallback />
-        </Avatar.Root>
-      </Flex>
-    </Box>
+      <Heading dir="rtl" size="md">
+        کافه پمو
+      </Heading>
+      <Spacer />
+      <InputGroup
+        flex="1"
+        color="blackAlpha.900"
+        borderColor="gray.100"
+        startElement={<LuSearch />}
+        display={{ base: "none", sm: "block" }}
+      >
+        <Input
+          bg="blackAlpha.200"
+          _placeholder={{ color: "blackAlpha.900" }}
+          placeholder="جستجو"
+          w="100%"
+        />
+      </InputGroup>
+      <Spacer />
+      <Avatar.Root>
+        <Avatar.Fallback />
+      </Avatar.Root>
+    </Flex>
   );
 }

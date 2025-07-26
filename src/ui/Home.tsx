@@ -1,35 +1,24 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  IconButton,
-  Image,
-  Text,
-  chakra,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import Menu from "../features/menu/menu";
 
 export default function Home() {
   return (
-    <Box position="relative" px="9" py="10" mt="2" bg="gray.50">
-      <Box maxW="lg" zIndex="2" position="relative">
-        <Text fontSize="4xl" fontWeight="bold">
-          یک قهوه فراموش نشدنی...
+    <Box position="relative" px="4">
+      {/* BOX 1 */}
+      <Box maxW="lg" zIndex="2" position="relative" mt="10">
+        <Text fontWeight="bold" px="10">
+          یک کافی فراموش نشدنی...
         </Text>
-        <Text fontSize="lg" mt="4">
-          جایی دنج برای عاشقان قهوه؛
-          <br />
-          کافه ما فضای راحتی برای شما و دوستانتان فراهم کرده ایم.
+        <Text fontSize="lg" mt="4" px="10">
+          ما را در قلب سوس پیدا کنید و از یک تجربه فراموش نشدنی قهوه لذت ببرید!
         </Text>
-        <HStack mb="4">
-          <IconButton aria-label="Instagram" variant="ghost" />
-        </HStack>
       </Box>
+
+      {/* BOX 2*/}
       <Box
-        mt="10"
+        mt="150px"
         bg="white"
         position="relative"
-        top="10"
         borderRadius="3xl"
         zIndex="1"
         w={{ base: "100%", md: "90%", lg: "80%" }}
@@ -37,26 +26,20 @@ export default function Home() {
         p="10"
         boxShadow="lg"
       >
-        <Flex
-          w={{ base: "150px", md: "1050px" }}
-          direction="column"
-          justify="space-between"
-          bg="whiteAlpha.100"
-        >
+        <Flex direction="column" justify="space-between" bg="whiteAlpha.100">
           <Text px="10" py="10" fontWeight="bold">
             موقعیت جغرافیایی ما:
           </Text>
 
           <Text px="10" py="10">
-            ما را در قلب سوس پیدا کنید و از یک تجربه فراموش نشدنی قهوه لذت
-            ببرید!
+            ما را در قلب سوس پیدا کنید...
           </Text>
 
-          <Flex direction="flex" justify="space-around">
-            <Button w="500px" borderRadius="full">
+          <Flex gap="4" justify="center">
+            <Button w="200px" borderRadius="full">
               کپی لوکیشن
             </Button>
-            <Button w="500px" borderRadius="full">
+            <Button w="200px" borderRadius="full">
               گوگل مپ
             </Button>
           </Flex>
@@ -65,24 +48,40 @@ export default function Home() {
         <Image
           alt="coffee"
           position="absolute"
-          bottom="-80px"
-          right={{ base: "50%", md: "60%" }}
-          top={{ base: "-450px" }}
-          transform={{ base: "translateX(50%)", md: "none" }}
-          w={{ base: "200px", md: "700px" }}
+          top="-300px"
+          left="50%"
+          transform="translateX(-50%)"
+          w={{ base: "200px", md: "500px" }}
           zIndex="2"
           src="src/assets/pics/headerbg.png"
         />
       </Box>
+
       <Image
         src="src/assets/pics/aboutbg.svg"
         position="absolute"
-        top="40"
+        top="150px"
         left="0"
         objectFit="cover"
         width="100%"
         alt="background"
+        zIndex="0"
       />
+
+      <Box
+        mt="100px"
+        h="1000px"
+        px="10"
+        py="10"
+        border="1px solid"
+        position="relative"
+        justifyItems="center"
+      >
+        <Text fontSize="50px" mb="30px">
+          منو کافی
+        </Text>
+        <Menu />
+      </Box>
     </Box>
   );
 }
