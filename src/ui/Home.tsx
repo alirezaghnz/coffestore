@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  List,
+  ListItem,
+  Text,
+} from "@chakra-ui/react";
 import Menu from "../features/menu/menu";
 
 export default function Home() {
@@ -70,17 +78,37 @@ export default function Home() {
 
       <Box
         mt="100px"
-        h="1000px"
-        px="10"
-        py="10"
-        border="1px solid"
         position="relative"
         justifyItems="center"
+        justifyContent="center"
       >
         <Text fontSize="50px" mb="30px">
           منو کافی
         </Text>
         <Menu />
+      </Box>
+      <Box mt="100px" px="10" py="10" border="1px solid" justifyItems="center">
+        <Text fontSize="50px" mb="15px" borderBottom="5px solid">
+          Opening Hours
+        </Text>
+        <Text fontSize="20px">پمو کافی 7 روز هفته در خدمت شماست</Text>
+        <Flex
+          gap="100px"
+          w="50%"
+          bg="white"
+          direction="column"
+          borderRadius="2xl"
+          boxShadow="lg"
+        >
+          <Box display="flex" justifyContent="space-between" px="10px">
+            <Text>1</Text>
+            <Text>1</Text>
+          </Box>
+          <Box display="flex" justifyContent="space-between" px="10px">
+            <Text>1</Text>
+            <Text>1</Text>
+          </Box>
+        </Flex>
       </Box>
     </Box>
   );

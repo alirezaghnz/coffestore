@@ -9,7 +9,7 @@ export default function AppLayout() {
       <VStack w="100%" bg="gray.50">
         <Header />
 
-        <Flex w="100%" direction="column" h="200vh">
+        <Flex w="100%" direction="column">
           <Outlet />
         </Flex>
         <Footer />
