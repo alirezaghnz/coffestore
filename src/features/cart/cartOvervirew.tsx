@@ -1,16 +1,9 @@
-import {
-  Box,
-  Button,
-  CloseButton,
-  Drawer,
-  IconButton,
-  Kbd,
-  Portal,
-} from "@chakra-ui/react";
+import { Box, Drawer, IconButton } from "@chakra-ui/react";
 
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { getTotalCartQuantity } from "./cartSlice";
+import CartDrawer from "./CartDrawer";
 
 export default function CartOverview() {
   const totalCartQuantity = useSelector(getTotalCartQuantity);
@@ -28,28 +21,7 @@ export default function CartOverview() {
               variant="ghost"
             />
           </Drawer.Trigger>
-          <Portal>
-            <Drawer.Backdrop />
-            <Drawer.Positioner>
-              <Drawer.Content maxW="700px" dir="rtl">
-                <Drawer.Header>
-                  <Drawer.Title dir="rtl">سبد خرید</Drawer.Title>
-                </Drawer.Header>
-                <Drawer.Body>
-                  برای خروج از سبد خرید می توانید <Kbd>esc</Kbd> را بزنید
-                </Drawer.Body>
-                <Drawer.Footer>
-                  <Drawer.ActionTrigger asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </Drawer.ActionTrigger>
-                  <Button>Save</Button>
-                </Drawer.Footer>
-                <Drawer.CloseTrigger asChild>
-                  <CloseButton size="sm" />
-                </Drawer.CloseTrigger>
-              </Drawer.Content>
-            </Drawer.Positioner>
-          </Portal>
+          <CartDrawer />
         </Drawer.Root>
         <Box
           position="absolute"
