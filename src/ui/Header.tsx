@@ -8,6 +8,9 @@ import {
 } from "@chakra-ui/react";
 import { LuSearch } from "react-icons/lu";
 
+import { Link } from "react-router";
+import CartOverview from "../features/cart/cartOvervirew";
+
 export default function Header() {
   return (
     <Flex
@@ -21,7 +24,7 @@ export default function Header() {
       px="6"
     >
       <Heading dir="rtl" size="md">
-        کافه پمو
+        <Link to="/"> کافه پمو</Link>
       </Heading>
       <Spacer />
       <InputGroup
@@ -39,9 +42,12 @@ export default function Header() {
         />
       </InputGroup>
       <Spacer />
-      <Avatar.Root>
-        <Avatar.Fallback />
-      </Avatar.Root>
+      <Flex gap="10px">
+        <Avatar.Root>
+          <Avatar.Fallback />
+        </Avatar.Root>
+        <CartOverview />
+      </Flex>
     </Flex>
   );
 }

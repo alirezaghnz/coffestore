@@ -1,23 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
+import type { MenuItemTypes } from "../types/menu";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-interface MenuItem {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  image_url: string;
-}
-
-export async function getMenu(): Promise<MenuItem[]> {
+export async function getMenu(): Promise<MenuItemTypes[]> {
   const { data, error } = await supabase.from("menu").select("*");
   if (error) {
     console.error(error);
     throw new Error("menu not loaded");
   }
-  return data as MenuItem[];
+  return data as MenuItemTypes[];
 }

@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  List,
-  ListItem,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import Menu from "../features/menu/menu";
 
 export default function Home() {
@@ -87,10 +79,11 @@ export default function Home() {
         </Text>
         <Menu />
       </Box>
-      <Box mt="100px" px="10" py="10" border="1px solid" justifyItems="center">
-        <Text fontSize="50px" mb="15px" borderBottom="5px solid">
+      <Box mt="100px" px="10" py="10" justifyItems="center">
+        <Text fontSize="50px" mb="15px">
           Opening Hours
         </Text>
+        <Box w="16px" h="1px" bg="gray.200"></Box>
         <Text fontSize="20px">پمو کافی 7 روز هفته در خدمت شماست</Text>
         <Flex
           gap="100px"
@@ -99,14 +92,52 @@ export default function Home() {
           direction="column"
           borderRadius="2xl"
           boxShadow="lg"
+          px="50px"
+          py="50px"
+          mt="10px"
+          fontSize="30px"
         >
-          <Box display="flex" justifyContent="space-between" px="10px">
-            <Text>1</Text>
-            <Text>1</Text>
+          <Box display="flex" justifyContent="space-between">
+            <Text>شنبه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="20px">
+              07:00 - 23:00
+            </Text>
           </Box>
-          <Box display="flex" justifyContent="space-between" px="10px">
-            <Text>1</Text>
-            <Text>1</Text>
+          <Box display="flex" justifyContent="space-between">
+            <Text>یکشنبه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="20px">
+              07:00 - 23:00
+            </Text>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Text>دوشنبه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="20px">
+              07:00 - 23:00
+            </Text>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Text>سه شنبه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="20px">
+              07:00 - 23:00
+            </Text>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Text>چهارشنبه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="20px">
+              07:00 - 23:00
+            </Text>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Text>پنجشنبه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="20px">
+              07:00 - 23:00
+            </Text>
+          </Box>
+          <Box display="flex" justifyContent="space-between">
+            <Text>جمعه</Text>
+            <Text bg="gray.200" borderRadius="lg" px="20px" py="0px">
+              07:00 - 23:00
+            </Text>
           </Box>
         </Flex>
       </Box>
