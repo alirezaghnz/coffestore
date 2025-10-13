@@ -1,9 +1,10 @@
 package main
-import (
-	"net/http"
-	"fmt"
-)
-func Hello(w http.ResponseWriter, r *http.Request){
-	fmt.Fprint(w, "Hello, World")
 
-} 
+import (
+	"github.com/gin-gonic/gin"
+)
+
+func Hello(c *gin.Context){
+	c.String(200, "Hello World")
+}
+

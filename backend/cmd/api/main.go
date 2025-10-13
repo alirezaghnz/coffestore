@@ -1,33 +1,19 @@
 package main
+
 import (
-    "fmt"
-    "log"
-    "net/http"
+	"github.com/gin-gonic/gin"
 )
-const port = 8080
 
-type application struct {
-	Domain string
-}
+func main() {
+	r := gin.Default()
 
-func main(){
-	// set app config
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Hello, World",
+		})
+	})
 
-	var app application
+	//r.GET("/", Hello)
 
-	// read from command line
-
-	// connect to db
-
-
-	app.Domain = "example.com"
-
-	log.Println("Starting server on port", port)
-	http.HandleFunc("/", Hello )
-
-	// start a web server
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	r.Run(":8080") // listen and serv on Port 8080
 }
