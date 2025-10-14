@@ -2,15 +2,23 @@ package main
 
 import (
 	"backend/cmd/routes"
+	"backend/internal/database"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
+
 func main() {
-	r := gin.Default()
 	
+	//connect to the database
+	database.InitDB()
+	defer database.DB.Close()
+
+	// Set the router as the default one shipped with Gin
+	r := gin.Default()
+
     r.Use(cors.New(cors.Config{
         AllowOrigins:     []string{"http://localhost:3000"},
         AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
