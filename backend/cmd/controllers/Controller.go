@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"backend/internal/database"
 	"backend/internal/models"
 	"net/http"
 
@@ -8,17 +9,23 @@ import (
 )
 
 func GetCoffees(c *gin.Context){
-	var coffees []models.Coffee 
-
-	capochino := models.Coffee {
-		ID:1,
-		Name: "Cappuccino",
-		Price: 3.5,
-		Discount: 0.5,
-		Description: "Test",
-		ImageURL: "https://example.com",
+	rows, err := database.DB.Query("SELECT id, name, price, discount, description, image_url FROM coffees")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
-	coffees = append(coffees, capochino)
+	defer rows.Close()
+
+	var coffees []models.Coffee
+
+	for rows.Next() {
+		var coffee models.Coffee
+		if err := rows.Scan(&coffee.ID, &coffee.Name, &coffee.Price, &coffee.Discount, &coffee.Description, &coffee.ImageURL); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		coffees = append(coffees, coffee)
+	}
+
 	c.JSON(http.StatusOK, coffees)
 }
-

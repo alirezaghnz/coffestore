@@ -14,7 +14,7 @@ var DB *sql.DB
 // initalize and stores the global DB connection
 func InitDB(){
 	// Define commnand-line flags
-	dsn := flag.String("dsn", "host=localhost user=postgres password=admin dbname=coffee port=5432 sslmode=disable connect_timeout=5 timezone=UTC", "PostgreSQL connection string")
+	dsn := flag.String("dsn", "host=localhost user=postgres password=admin dbname=postgres port=5432 sslmode=disable connect_timeout=5 timezone=UTC", "PostgreSQL connection string")
 	
 
 	// 

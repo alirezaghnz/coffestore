@@ -19,6 +19,10 @@ func main() {
 	// Set the router as the default one shipped with Gin
 	r := gin.Default()
 
+
+	// CORS middleware
+	// Allowing requests from the frontend (React) runing on localhost:3000
+
     r.Use(cors.New(cors.Config{
         AllowOrigins:     []string{"http://localhost:3000"},
         AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
