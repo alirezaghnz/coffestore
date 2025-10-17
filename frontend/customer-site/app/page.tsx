@@ -1,4 +1,11 @@
-export default function Home() {
+import CoffeeHome from "./_components/CoffeeHome";
+import { getCoffees } from "./_services/getCoffees";
+
+export const revalidate = 60;
+export default async function Page() {
+  const { data: coffees } = await getCoffees();
+  const sliceCoffee = coffees.slice(0, 4);
+
   return (
     <main>
       <div className="h-[400px] bg-[url('/header.jpg')] bg-cover bg-center [clip-path:polygon(0_0,100%_0,100%_85%,50%_100%,0_85%)]">
@@ -37,6 +44,16 @@ export default function Home() {
               <p className=" text-gray-300 mt-10">مشاهده بیشتر</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="mt-10 max-w-7xl mx-auto  p-8">
+        <h1 className="text-3xl text-center">پر فروش ترین های میلک شیک</h1>
+        <p className="text-gray-600 mt-6 text-center">
+          پرفروش ترین میلک شیک های چند وقت اخیر ما را تجربه کنید
+        </p>
+        <div className="mt-6 grid grid-cols-4 items-start gap-4  h-[500px] px-7 py-7">
+          <CoffeeHome coffees={sliceCoffee} />
         </div>
       </section>
     </main>
