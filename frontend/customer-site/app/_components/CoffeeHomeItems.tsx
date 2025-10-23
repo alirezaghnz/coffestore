@@ -1,4 +1,6 @@
 "use client";
+
+import Image from "next/image";
 import { useCartStore } from "../_store/useCartStore";
 import Button from "./ui/Button";
 
@@ -7,19 +9,28 @@ interface CoffeeHomeItemsProps {
     name: string;
     price: number;
     id: number;
+    image: string;
+    description: string;
   };
 }
 
 export default function CoffeeHomeItems({
   item: coffee,
 }: CoffeeHomeItemsProps) {
-  const { id, price, name } = coffee;
+  const { id, price, name, image } = coffee;
+
   const addToCart = useCartStore((state) => state.addToCart);
   return (
     <>
-      <div className="w-40 h-40 mx-auto mt-2 rounded-md bg-[url('/header.jpg')] bg-cover bg-center"></div>
-      <div className="text-center mt-7 mb-5">
+      <div className="text-center mb-2">
         <span className="block font-semibold" key={id}>
+          <Image
+            src={image}
+            alt={name}
+            width={300}
+            height={300}
+            className="rounded mb-2"
+          />
           میلک شیک {name}
         </span>
       </div>
