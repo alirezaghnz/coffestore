@@ -1,64 +1,94 @@
+// ...existing code...
 import Link from "next/link";
 import { BsInstagram, BsTelegram, BsTwitterX } from "react-icons/bs";
 
 export default function Footer() {
   return (
-    <footer className="bg-coffee-900 mt-5 border-t h-[300px]">
-      <div className="flex p-5 justify-center w-full">
-        <span className="border-b-4 px-2.5 w-[1200px]"></span>
-      </div>
-      <ul className="flex justify-center gap-20 text-white ">
-        <li className="flex flex-col gap-3 items-center ">
-          <span className="text-xl font-semibold">سوشال مدیا</span>
-          <a href="#">
-            <BsInstagram className="w-6 h-6 " />
-          </a>
-          <a href="#">
-            <BsTelegram className="w-6 h-6 " />
-          </a>
-          <a href="#">
-            <BsTwitterX className="w-6 h-6 " />
-          </a>
-        </li>
-        <li>
-          <div className="flex flex-col justify-center gap-2 items-center">
-            <span className="text-xl font-semibold"> ارتباط با ما</span>
-            <Link
-              href="/about"
-              className="text-gray-400 justify-center items-center"
-            >
+    <footer className="bg-coffee-900 mt-5 border-t text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8">
+        <div className="w-full flex justify-center mb-6">
+          <span className="block w-full max-w-[1200px] border-b-4" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="flex flex-col items-center sm:items-start gap-3">
+            <h4 className="text-lg font-semibold">سوشال مدیا</h4>
+            <div className="flex gap-3 mt-2">
+              <a
+                aria-label="instagram"
+                href="#"
+                className="p-2 rounded-md hover:bg-white/10"
+              >
+                <BsInstagram className="w-5 h-5" />
+              </a>
+              <a
+                aria-label="telegram"
+                href="#"
+                className="p-2 rounded-md hover:bg-white/10"
+              >
+                <BsTelegram className="w-5 h-5" />
+              </a>
+              <a
+                aria-label="twitter"
+                href="#"
+                className="p-2 rounded-md hover:bg-white/10"
+              >
+                <BsTwitterX className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center sm:items-start gap-2">
+            <h4 className="text-lg font-semibold">ارتباط با ما</h4>
+            <Link href="/about" className="text-gray-300 hover:text-white">
               درباره ما
             </Link>
-            <Link
-              href="/contact"
-              className=" text-gray-400 justify-center items-center"
-            >
+            <Link href="/contact" className="text-gray-300 hover:text-white">
               تماس با ما
             </Link>
-            <Link
-              href="/contact"
-              className=" text-gray-400 justify-center items-center"
-            >
+            <Link href="/support" className="text-gray-300 hover:text-white">
               پشتیبانی
-            </Link>{" "}
-            <Link
-              href="#"
-              className=" text-gray-400 justify-center items-center"
-            >
-              بررسی سفارش ها
+            </Link>
+            <Link href="#" className="text-gray-300 hover:text-white">
+              بررسی سفارش‌ها
             </Link>
           </div>
-        </li>
-        <li>
-          <span className="text-xl font-semibold"> دسته بندی ها</span>
-        </li>
-        <li className="flex flex-col gap-3 items-center">
-          <span className="text-xl font-semibold">محصولات</span>
-          <Link className="text-gray-400" href="/menu">
-            منو کافی
-          </Link>
-        </li>
-      </ul>
+
+          {/* Categories */}
+          <div className="flex flex-col items-center sm:items-start gap-2">
+            <h4 className="text-lg font-semibold">دسته بندی ها</h4>
+            <Link href="/menu" className="text-gray-300 hover:text-white">
+              منو کافی
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center sm:items-start gap-2">
+            <h4 className="text-lg font-semibold">محصولات</h4>
+            <Link href="/menu" className="text-gray-300 hover:text-white">
+              محصولات ویژه
+            </Link>
+            <Link href="/menu" className="text-gray-300 hover:text-white">
+              پرفروش‌ها
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-8 border-t pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} پمو کافی — تمام حقوق محفوظ است
+            </p>
+            <div className="flex gap-3 text-sm text-gray-300">
+              <Link href="/privacy" className="hover:text-white">
+                حریم خصوصی
+              </Link>
+              <Link href="/terms" className="hover:text-white">
+                قوانین
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }
