@@ -29,8 +29,8 @@ export default function Page() {
           </ul>
         </div>
       </div>
-      <div className="flex justify-center px-10 py-3 gap-4">
-        <div className="w-[50%]">
+      <div className="flex justify-center  px-8 py-3 gap-6">
+        <div className="w-[45%] flex flex-col gap-6">
           {coffeeLength.length === 0 ? (
             <Link href="/">بازگشت به خانه</Link>
           ) : (
@@ -41,22 +41,28 @@ export default function Page() {
           )}
 
           {cartItems.map((item) => (
-            <div className="px-10 py-5" key={item.id}>
-              <div className="grid">
-                <div className="flex gap-2 ">
-                  <div className="flex gap-9">
-                    <Image
-                      src={item.image}
-                      width={300}
-                      height={300}
-                      alt={item.name}
-                    />
-                    <span>{item.name}</span>
-                    <span>توضیحات:{item.description}</span>
+            <div
+              className="px-5 py-4 border bg-white/40 rounded-sm"
+              key={item.id}
+            >
+              <div className="flex  flex-col gap-9">
+                <div className="flex gap-2">
+                  <Image
+                    src={item.image}
+                    width={300}
+                    height={300}
+                    alt={item.name}
+                  />
+                  <div className="flex flex-col gap-8 px-4">
+                    <span className="font-semibold">
+                      نام محصول: {item.name}{" "}
+                    </span>
+                    <p>توضیحات:{item.description}</p>
                   </div>
                 </div>
-                <div className="flex gap-7 mt-10">
-                  <div className="flex justify-center mb-8 items-center border border-coffee-300 rounded-lg w-[150px] py-3 gap-2">
+
+                <div className="flex items-center justify-between">
+                  <div className="flex justify-center mb-8 items-center shadow-lg border-coffee-300 bg-white  rounded-lg w-[150px] py-3 gap-2">
                     <button
                       className="px-2"
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
@@ -80,21 +86,21 @@ export default function Page() {
                       </button>
                     )}
                   </div>
-                  <span className="flex justify-center items-center text-xl">
-                    قیمت : {item.price} تومان
+                  <span className="text-xl flex gap-2">
+                    قیمت : <p className="font-semibold">{item.price} </p>تومان
                   </span>
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="grid gap-6 border border-coffee-300 rounded-md w-[20%] h-[250px] px-6 py-5">
+        <div className="grid gap-6 bg-white shadow-xl border-coffee-300 rounded-md w-[20%] h-[250px] px-6 py-5">
           <span>قیمت کافی :</span>
           <span className="flex">
             قیمت کل : <p className="font-semibold">{totalPrice} تومان</p>{" "}
           </span>
           <button className="bg-coffee-400 text-white rounded-md px-2 py-5">
-            تکمیل سفارش
+            <Link href="/checkout/order"> تکمیل سفارش</Link>
           </button>
         </div>
       </div>

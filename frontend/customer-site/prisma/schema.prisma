@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model UserOrderInfo {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  email      String
+  name       String
+  lastName   String
+  province   String
+  mobile     String
+  codemelli  String
+  location   String
+  pelak      String
+
+  orderItems OrderItem[]
+}
+
+
+model Coffee {
+  id          Int      @id(map: "untitled_table_pkey") @default(autoincrement())
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  name        String?
+  price       Float?   @db.Real
+  discount    Float?   @db.Real
+  image       String?
+  description String?
+
+  orderItems  OrderItem[]
+
+  @@map("coffees")
+}
+
+model OrderItem {
+  id         Int           @id @default(autoincrement())
+  order      UserOrderInfo @relation(fields: [orderId], references: [id])
+  orderId    Int
+  coffee     Coffee        @relation(fields: [coffeeId], references: [id])
+  coffeeId   Int
+
+  quantity   Int
+}
