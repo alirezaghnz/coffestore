@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,43 +8,163 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  phone     String?
+  role      Role     @default(CUSTOMER)
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-model UserOrderInfo {
-  id         Int       @id @default(autoincrement())
-  createdAt  DateTime  @default(now())
-  email      String
-  name       String
-  lastName   String
-  province   String
-  mobile     String
-  codemelli  String
-  location   String
-  pelak      String
+  addresses     Address[]
+  orders        Order[]
+  cartItems     CartItem[]
+  emailVerified Boolean    @default(false)
+  image         String?
+  sessions      Session[]
+  accounts      Account[]
+
+  createdAt DateTime @default(now())
+
+  @@map("user")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+model Coffee {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       String
+  discount    String
+  image       String?
+  isAvalable  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  orderNumber String      @unique
+  status      OrderStatus @default(PENDING)
+  totalAmout  String
+
+  addressId String
+  address   Address @relation(fields: [addressId], references: [id])
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deliveredAt DateTime?
 
   orderItems OrderItem[]
 }
 
-
-model Coffee {
-  id          Int      @id(map: "untitled_table_pkey") @default(autoincrement())
-  created_at  DateTime @default(now()) @db.Timestamp(6)
-  name        String?
-  price       Float?   @db.Real
-  discount    Float?   @db.Real
-  image       String?
-  description String?
-
-  orderItems  OrderItem[]
-
-  @@map("coffees")
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
 
 model OrderItem {
-  id         Int           @id @default(autoincrement())
-  order      UserOrderInfo @relation(fields: [orderId], references: [id])
-  orderId    Int
-  coffee     Coffee        @relation(fields: [coffeeId], references: [id])
-  coffeeId   Int
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
 
-  quantity   Int
+  coffeeId String
+  coffee   Coffee @relation(fields: [coffeeId], references: [id])
+
+  quantity Int
+  price    String
+
+  @@unique([orderId, coffeeId])
+}
+
+model Address {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  fullName   String
+  phone      String
+  province   String
+  address    String
+  postalCode String
+  isDefault  Boolean @default(false)
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+}
+
+model CartItem {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  coffeeId String
+  coffee   Coffee @relation(fields: [coffeeId], references: [id])
+
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, coffeeId])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
 }
