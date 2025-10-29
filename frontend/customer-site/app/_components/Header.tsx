@@ -4,10 +4,14 @@ import Navigation from "./Navigation";
 import Link from "next/link";
 import { User } from "lucide-react";
 import CartIcon from "./CartIcon";
+import { authClient } from "../lib/auth-client";
+import UserInfoHeader from "./UserInfoHeader";
 
 export default function Header() {
   const [scrollY, setScrollY] = useState(0);
   const [open, setOpen] = useState(false);
+
+  const { data: session, isPending: isLoading } = authClient.useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +23,10 @@ export default function Header() {
   }, []);
 
   const translate = Math.min(scrollY / 4, 18);
+
+  if (isLoading) {
+    return <div>...Loading</div>;
+  }
 
   return (
     <header
@@ -81,9 +89,14 @@ export default function Header() {
 
         {/* login and cartIcon */}
         <div className="flex items-center gap-10">
-          <Link href="/login">
-            <User className="w-7 h-7" />
-          </Link>
+          {session ? (
+            <UserInfoHeader />
+          ) : (
+            <Link href="/authentication">
+              <User className="w-7 h-7" />
+            </Link>
+          )}
+
           <CartIcon />
         </div>
       </div>
