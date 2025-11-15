@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "@/app/_styles/globals.css";
-import Header from "@/app/_components/Header";
-import Footer from "./_components/Footer";
 
 export const metadata: Metadata = {
   title: "پمو کافی",
@@ -15,13 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="min-h-screen flex flex-col font-iransans">
-        <Header />
-        <div className="flex-1 px-8 py-12 grid">
-          <main>{children}</main>
-        </div>
-        <Footer />
-      </body>
+      <body className="flex flex-col font-iransans">{children}</body>
     </html>
   );
 }

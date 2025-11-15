@@ -3,6 +3,7 @@ import { User, Settings, FileText, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { authClient } from "../lib/auth-client";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function UserInfoHeader() {
   const router = useRouter();
@@ -45,12 +46,25 @@ export default function UserInfoHeader() {
     {
       icon: LogOut,
       label: "خروج کاربری",
-      href: "",
+      action: "logout",
     },
   ];
 
-  const handleModalClick = (href: any) => {
-    router.push(href);
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut();
+    } catch (error) {
+      console.error("خطا در خروج", error);
+    }
+  };
+
+  const handleModalClick = (item: any) => {
+    if (item.action === "logout") {
+      handleLogout();
+    } else {
+      router.push(item.href);
+    }
+
     setOpenModal(false);
   };
   return (
@@ -67,7 +81,7 @@ export default function UserInfoHeader() {
             return (
               <button
                 key={index}
-                onClick={() => handleModalClick(item.href)}
+                onClick={() => handleModalClick(item)}
                 className="w-full px-9 py-4 flex items-center duration-150 border-b border-gray-50 last:border-b-0"
               >
                 <div className="p-2 rounded-lg ">

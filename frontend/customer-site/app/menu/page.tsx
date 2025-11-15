@@ -1,8 +1,9 @@
+import { getAllCoffees } from "../_actions/coffee";
 import CoffeeMenu from "../_components/CoffeeMenu";
-import { getCoffees } from "../_services/getCoffees";
 
+export const revalidate = 3600;
 export default async function Page() {
-  const { data: coffees } = await getCoffees();
+  const coffees = await getAllCoffees();
 
   return (
     <>

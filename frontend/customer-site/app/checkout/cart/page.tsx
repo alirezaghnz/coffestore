@@ -2,6 +2,7 @@
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 import { useCartStore } from "@/app/_store/useCartStore";
+import axios from "axios";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +14,18 @@ export default function Page() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const handleSubmitCart = async () => {
+    const { cartItems } = useCartStore.getState();
+    try {
+      const res = await axios.post("/api/cart", { cartItems });
+      if (res.status === 200) {
+        alert("سبد خرید ثبت شد");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -99,8 +112,11 @@ export default function Page() {
           <span className="flex">
             قیمت کل : <p className="font-semibold">{totalPrice} تومان</p>{" "}
           </span>
-          <button className="bg-coffee-400 text-white rounded-md px-2 py-5">
-            <Link href="/checkout/order"> تکمیل سفارش</Link>
+          <button
+            onClick={handleSubmitCart}
+            className="bg-coffee-400 text-white rounded-md px-2 py-5"
+          >
+            <span> تکمیل سفارش</span>
           </button>
         </div>
       </div>

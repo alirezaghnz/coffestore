@@ -1,7 +1,8 @@
 "use server";
 
-import prisma from "@/app/_lib/prisma";
+import prisma from "@/app/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function addUserOrderInfo(data: any) {
   const { cartItems } = data;
@@ -32,4 +33,5 @@ export async function addUserOrderInfo(data: any) {
   } catch (error) {
     console.error("Database error:", error);
   }
+  redirect("/checkout/complete");
 }

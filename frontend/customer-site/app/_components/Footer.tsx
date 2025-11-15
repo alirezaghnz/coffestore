@@ -1,6 +1,7 @@
 // ...existing code...
 import Link from "next/link";
 import { BsInstagram, BsTelegram, BsTwitterX } from "react-icons/bs";
+import Button from "./ui/Button";
 
 export default function Footer() {
   return (
@@ -86,6 +87,7 @@ export default function Footer() {
                 قوانین
               </Link>
             </div>
+            <Button>asdflksdf</Button>
           </div>
         </div>
       </div>

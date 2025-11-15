@@ -20,8 +20,8 @@ export default function Login() {
     await authClient.signIn.email(
       { ...data },
       {
-        onError: (err) => {
-          toast.error(err.error.message || "مشکل در ورود به حساب کاربری.");
+        onError: () => {
+          toast.error("ایمیل یا پسورد اشتباه است.");
         },
         onSuccess: () => {
           router.push("/");

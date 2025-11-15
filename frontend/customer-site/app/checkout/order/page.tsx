@@ -4,10 +4,21 @@ import Input from "@/app/_components/ui/Input";
 import { useForm } from "react-hook-form";
 import { addUserOrderInfo } from "./_actions";
 import { useCartStore } from "@/app/_store/useCartStore";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const { register, handleSubmit } = useForm();
   const cartItems = useCartStore((state) => state.cartItems);
+  const [form, setForm] = useState({ name });
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch("/api/profile");
+      const data = await res.json();
+      if (res.ok) setForm(data);
+    };
+    fetchUsers();
+  }, []);
 
   async function onSubmit(data: any) {
     await addUserOrderInfo({ ...data, cartItems });
@@ -27,16 +38,19 @@ export default function Page() {
               defaultValue="alirezagholinezhaad@gmail.com"
               placeholder="ایمیل خود را وارد نمایید"
               disabled
+              value={form.email}
             />
             <Input
               {...register("name")}
               label="نام"
               placeholder="نام خود را وارد نمایید"
+              value={form.name}
             />
             <Input
               {...register("lastName")}
               label="نام خانوادگی"
               placeholder="نام خانوادگی خود را وارد نمایید"
+              value={form.name}
             />
             <Input
               {...register("province")}
@@ -50,6 +64,7 @@ export default function Page() {
               {...register("mobile")}
               label="شماره موبایل"
               placeholder="شماره موبایل خود را وارد نمایید"
+              value={form.phone}
             />
             <Input
               {...register("codemelli")}

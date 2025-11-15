@@ -27,8 +27,8 @@ export default function CoffeeHomeItems({
           <Image
             src={image}
             alt={name}
-            width={300}
-            height={300}
+            width={500}
+            height={500}
             className="rounded mb-2"
           />
           میلک شیک {name}
