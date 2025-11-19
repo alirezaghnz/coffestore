@@ -1,15 +1,12 @@
-// ...existing code...
 import Link from "next/link";
 import { BsInstagram, BsTelegram, BsTwitterX } from "react-icons/bs";
-import Button from "./ui/Button";
+
 
 export default function Footer() {
   return (
     <footer className="bg-coffee-900 mt-5 border-t text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8">
-        <div className="w-full flex justify-center mb-6">
-          <span className="block w-full max-w-[1200px] border-b-4" />
-        </div>
+      
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           <div className="flex flex-col items-center sm:items-start gap-3">
@@ -87,7 +84,7 @@ export default function Footer() {
                 قوانین
               </Link>
             </div>
-            <Button>asdflksdf</Button>
+          
           </div>
         </div>
       </div>

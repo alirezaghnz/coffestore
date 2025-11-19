@@ -69,9 +69,9 @@ export default function UserInfoHeader() {
   };
   return (
     <div className="relative " ref={modalRef}>
-      <button className="flex" onClick={() => setOpenModal(!openModal)}>
-        <User className="w-7 h-7 cursor-pointer" />
-        <span className="cursor-pointer">⮟</span>
+      <button className="flex border bg-gradient-to-l from-cyan-700 to-cyan-500 px-5 py-2 rounded-md text-white " onClick={() => setOpenModal(!openModal)}>
+        <User className="w-5 h-5 cursor-pointer" />
+        <span className="cursor-pointer">پروفایل من</span>
       </button>
 
       {openModal && (

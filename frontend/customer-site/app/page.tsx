@@ -18,9 +18,7 @@ export default async function Page() {
           <h1 className="text-white text-1xl lg:text-4xl font-bold text-center pt-40">
             پخش و فروش بهترین کافی در ایران
           </h1>
-          <button className="text-center w-40  bg-blue-600/90 text-white px-9 py-4 rounded block mx-auto mt-7">
-            خرید کافی
-          </button>
+         
         </div>
         <TopCategories />
         <TopMilkShake coffees={sliceCoffee} />

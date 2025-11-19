@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Navigation from "./Navigation";
 import Link from "next/link";
-import { User } from "lucide-react";
+import { LogIn, User } from "lucide-react";
 import CartIcon from "./CartIcon";
 import { authClient } from "../lib/auth-client";
 import UserInfoHeader from "./UserInfoHeader";
@@ -82,18 +82,19 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Desktop navigation */}
+       
         <nav className="hidden md:flex md:items-center">
           <Navigation />
         </nav>
 
-        {/* login and cartIcon */}
+       
         <div className="flex items-center gap-10">
           {session ? (
             <UserInfoHeader />
           ) : (
-            <Link href="/authentication">
-              <User className="w-7 h-7" />
+            <Link className=" shadow-sm px-5 py-2 rounded-md flex bg-gradient-to-l gap-1 from-cyan-500 to-cyan-400" href="/authentication">
+              <LogIn className="w-6 h-6" />
+              <span>ورود/ثبت نام</span>
             </Link>
           )}
 
@@ -101,7 +102,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      
       <div
         className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
           open ? "max-h-96" : "max-h-0"
