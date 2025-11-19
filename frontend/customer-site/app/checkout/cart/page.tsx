@@ -1,13 +1,20 @@
 "use client";
+import { useCartStore } from "@/app/_store/useCartStore";
+import { authClient } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { Trash } from "lucide-react";
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
-import { useCartStore } from "@/app/_store/useCartStore";
 import axios from "axios";
-import { Trash } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+
+
+
 export default function Page() {
+  const { data, isPending} = authClient.useSession()
+  const router = useRouter()
   const coffeeLength = useCartStore((state) => state.cartItems);
   const { cartItems, updateQuantity, removeFromCart } = useCartStore();
   const totalPrice = cartItems.reduce(
@@ -15,17 +22,29 @@ export default function Page() {
     0
   );
 
+
+
   const handleSubmitCart = async () => {
-    const { cartItems } = useCartStore.getState();
-    try {
-      const res = await axios.post("/api/cart", { cartItems });
-      if (res.status === 200) {
-        alert("سبد خرید ثبت شد");
-      }
-    } catch (err) {
-      console.error(err);
+  const { cartItems } = useCartStore.getState();
+
+  if (isPending) return;
+
+  if (!data?.session) {
+    router.push("/authentication?redirect=/checkout/order");
+    return;  
+  }
+
+  router.push("/checkout/order");
+
+  try {
+    const res = await axios.post("/api/cart", { cartItems });
+    if (res.status === 200) {
+      alert("سبد خرید ثبت شد");
     }
-  };
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   return (
     <>
@@ -114,9 +133,9 @@ export default function Page() {
           </span>
           <button
             onClick={handleSubmitCart}
-            className="bg-coffee-400 text-white rounded-md px-2 py-5"
+            className="bg-coffee-400 text-white rounded-md"
           >
-            <span> تکمیل سفارش</span>
+           تکمیل سفارش
           </button>
         </div>
       </div>

@@ -1,97 +1,104 @@
 "use client";
-import Header from "@/app/_components/Header";
-import Input from "@/app/_components/ui/Input";
-import { useForm } from "react-hook-form";
-import { addUserOrderInfo } from "./_actions";
-import { useCartStore } from "@/app/_store/useCartStore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function Page() {
-  const { register, handleSubmit } = useForm();
-  const cartItems = useCartStore((state) => state.cartItems);
-  const [form, setForm] = useState({ name });
+export default function CheckoutPage() {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    note: "",
+  });
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await fetch("/api/profile");
-      const data = await res.json();
-      if (res.ok) setForm(data);
-    };
-    fetchUsers();
-  }, []);
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  async function onSubmit(data: any) {
-    await addUserOrderInfo({ ...data, cartItems });
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Checkout Data:", form);
+
+    // TODO: ارسال اطلاعات به بک‌اند
+  };
+
   return (
-    <>
-      <Header />
-      <div className="grow flex flex-col w-full items-center px-20 pt-[150px] h-screen">
-        <div className="border bg-cream-light border-gray-200 shadow-md rounded-xl w-[1400px]">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-wrap justify-center items-center gap-7 px-2 py-10"
-          >
-            <Input
-              {...register("email")}
-              label="ایمیل آدرس"
-              defaultValue="alirezagholinezhaad@gmail.com"
-              placeholder="ایمیل خود را وارد نمایید"
-              disabled
-              value={form.email}
-            />
-            <Input
-              {...register("name")}
-              label="نام"
-              placeholder="نام خود را وارد نمایید"
-              value={form.name}
-            />
-            <Input
-              {...register("lastName")}
-              label="نام خانوادگی"
-              placeholder="نام خانوادگی خود را وارد نمایید"
-              value={form.name}
-            />
-            <Input
-              {...register("province")}
-              label="استان"
-              defaultValue="مازندران"
-              placeholder="مازندران"
-              disabled
-            />
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">تکمیل سفارش</h1>
 
-            <Input
-              {...register("mobile")}
-              label="شماره موبایل"
-              placeholder="شماره موبایل خود را وارد نمایید"
-              value={form.phone}
-            />
-            <Input
-              {...register("codemelli")}
-              label="کد ملی"
-              placeholder="کد ملی خود را وارد نمایید"
-            />
+      <div className="grid md:grid-cols-3 gap-6">
+        {/* فرم اطلاعات */}
+        <form
+          onSubmit={handleSubmit}
+          className="md:col-span-2 bg-white shadow p-6 rounded-xl space-y-4"
+        >
+          <h2 className="text-xl font-semibold mb-2">اطلاعات مشتری</h2>
 
-            <Input
-              {...register("location")}
-              label="لوکیشن"
-              placeholder="لوکیشن خود را وارد نمایید"
+          <div>
+            <label className="block mb-1">نام و نام خانوادگی</label>
+            <input
+              type="text"
+              name="name"
+              onChange={handleChange}
+              className="w-full p-3 border rounded-lg"
             />
-            <Input
-              {...register("pelak")}
-              label="پلاک"
-              placeholder="پلاک را وارد نمایید"
-            />
+          </div>
 
-            <button
-              type="submit"
-              className="border px-9 py-2 bg-red-500 rounded-md"
-            >
-              ثبت
-            </button>
-          </form>
+          <div>
+            <label className="block mb-1">شماره تماس</label>
+            <input
+              type="text"
+              name="phone"
+              onChange={handleChange}
+              className="w-full p-3 border rounded-lg"
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1">آدرس کامل</label>
+            <textarea
+              name="address"
+              onChange={handleChange}
+              className="w-full p-3 border rounded-lg"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div>
+            <label className="block mb-1">یادداشت سفارش (اختیاری)</label>
+            <textarea
+              name="note"
+              onChange={handleChange}
+              className="w-full p-3 border rounded-lg"
+              rows="2"
+            ></textarea>
+          </div>
+
+          <button className="w-full bg-black text-white p-3 rounded-lg mt-4 hover:bg-gray-800">
+            ثبت و ادامه
+          </button>
+        </form>
+
+        {/* خلاصه سفارش */}
+        <div className="bg-white shadow p-6 rounded-xl h-fit">
+          <h2 className="text-xl font-semibold mb-4">خلاصه سفارش</h2>
+
+          <div className="space-y-4">
+            <div className="flex justify-between">
+              <span>قهوه اسپرسو</span>
+              <span>۲۳۰٬۰۰۰ تومان</span>
+            </div>
+            <div className="flex justify-between">
+              <span>مجموع</span>
+              <span>۲۳۰٬۰۰۰ تومان</span>
+            </div>
+          </div>
+
+          <hr className="my-4" />
+
+          <p className="text-sm text-gray-500">
+            هزینه ارسال هنگام تحویل محاسبه می‌شود.
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

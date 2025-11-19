@@ -1,7 +1,7 @@
 "use client";
 import z from "zod";
 import LinkedForAuthentication from "./LinkedForAuthentication";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { authClient } from "../lib/auth-client";
 import toast from "react-hot-toast";
@@ -15,6 +15,8 @@ const signUpSchema = z.object({
 type SignInForm = z.infer<typeof signUpSchema>;
 export default function Login() {
   const router = useRouter();
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get("redirect") || "/"
   const { register, handleSubmit } = useForm<SignInForm>();
   async function handle(data: SignInForm) {
     await authClient.signIn.email(
@@ -24,7 +26,7 @@ export default function Login() {
           toast.error("ایمیل یا پسورد اشتباه است.");
         },
         onSuccess: () => {
-          router.push("/");
+          router.push(redirect);
         },
       }
     );
