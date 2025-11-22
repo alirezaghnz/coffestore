@@ -28,6 +28,7 @@ export default function AddressesPage() {
     <div className="max-w-4xl mx-auto mt-1 p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">آدرس‌های من</h1>
+      
 
         <button
           onClick={() => setOpenAdd(true)}
