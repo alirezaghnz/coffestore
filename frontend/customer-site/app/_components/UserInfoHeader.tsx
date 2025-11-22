@@ -3,7 +3,7 @@ import { User, Settings, FileText, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { authClient } from "../lib/auth-client";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+
 
 export default function UserInfoHeader() {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function UserInfoHeader() {
     {
       icon: User,
       label: `کاربر ${session?.user.name} `,
-      href: "/profile",
+      href: "/profile/account",
     },
     {
       icon: Settings,
@@ -41,7 +41,7 @@ export default function UserInfoHeader() {
     {
       icon: FileText,
       label: "سفارشات",
-      href: "/orders",
+      href: "/profile/orders",
     },
     {
       icon: LogOut,
