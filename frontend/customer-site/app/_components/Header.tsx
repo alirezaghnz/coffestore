@@ -1,8 +1,9 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Navigation from "./Navigation";
 import Link from "next/link";
-import { LogIn, User } from "lucide-react";
+import { LogIn, MapPin } from "lucide-react";
 import CartIcon from "./CartIcon";
 import { authClient } from "../lib/auth-client";
 import UserInfoHeader from "./UserInfoHeader";
@@ -10,91 +11,82 @@ import UserInfoHeader from "./UserInfoHeader";
 export default function Header() {
   const [scrollY, setScrollY] = useState(0);
   const [open, setOpen] = useState(false);
+  const [defaultAddress, setDefaultAddress] = useState<any>(null);
 
-  const { data: session, isPending: isLoading } = authClient.useSession();
+  const { data: session} = authClient.useSession();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const translate = Math.min(scrollY / 4, 18);
 
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
+  useEffect(() => {
+    if (!session) return;
+    const fetchAddress = async () => {
+      const res = await fetch("/api/user/default-address");
+      const data = await res.json();
+      setDefaultAddress(data);
+    };
+    fetchAddress();
+  }, [session]);
+
+  const translate = Math.min(scrollY / 5, 18);
+
+
 
   return (
     <header
-      className="fixed top-0 left-0 w-full z-50 bg-coffee-100 shadow-md transition-transform duration-300"
+      className="fixed top-0 left-0 w-full z-50 bg-white shadow-md border-b border-black/5 transition-transform"
       style={{ transform: `translateY(-${translate}px)` }}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {/* Mobile menu button */}
+      <div className="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+        
+      
+        <div className="flex items-center gap-4">
           <button
             aria-label="menu"
             onClick={() => setOpen((s) => !s)}
-            className="md:hidden p-2 rounded-md text-coffee-600 hover:bg-black/5"
+            className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
           >
-            {open ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
+            {open ? "✖" : "☰"}
           </button>
 
-          <Link
-            href="/"
-            className="text-base md:text-xl font-semibold text-coffee-600"
-          >
+          <Link href="/" className="text-xl font-bold text-gray-800">
             پمو کافی
           </Link>
         </div>
 
        
-        <nav className="hidden md:flex md:items-center">
+        <nav className="hidden md:flex">
           <Navigation />
         </nav>
 
-       
-        <div className="flex items-center gap-10">
+      
+        <div className="flex items-center gap-7">
+
+         
+          {session && defaultAddress && (
+            <div className="hidden md:flex items-center gap-2 text-gray-600 bg-gray-100 px-8 py-1 rounded-lg">
+              <MapPin className="w-5 h-5 text-red-500" />
+              <span className="text-sm">
+               {defaultAddress.province}
+              </span>
+            </div>
+          )}
+
+          
           {session ? (
             <UserInfoHeader />
           ) : (
-            <Link className=" shadow-sm px-5 py-2 rounded-md flex bg-gradient-to-l gap-1 from-cyan-500 to-cyan-400" href="/authentication">
-              <LogIn className="w-6 h-6" />
-              <span>ورود/ثبت نام</span>
+            <Link
+              href="/authentication"
+              className="px-4 py-2 rounded-md bg-gradient-to-l from-cyan-500 to-cyan-400 text-white flex items-center gap-2 shadow-sm"
+            >
+              <LogIn className="w-5 h-5" />
+              ورود / ثبت‌نام
             </Link>
           )}
 
@@ -104,17 +96,23 @@ export default function Header() {
 
       
       <div
-        className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-          open ? "max-h-96" : "max-h-0"
+        className={`md:hidden overflow-hidden transition-[max-height] duration-300 ${
+          open ? "max-h-80" : "max-h-0"
         }`}
       >
-        <div className="px-4 pb-4 pt-2 border-t bg-coffee-100">
-          <div className="flex flex-col gap-2">
-            <Navigation />
-          </div>
+        <div className="px-4 pb-4 pt-2 bg-gray-50 border-t">
+          <Navigation />
+
+          {session && defaultAddress && (
+            <div className="mt-4 flex items-center gap-2 text-gray-600">
+              <MapPin className="w-5 h-5 text-red-500" />
+              <span>
+                {defaultAddress.city}، {defaultAddress.province}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </header>
   );
 }
-// ...existing code...
