@@ -2,7 +2,7 @@ import auth from "@/app/lib/auth";
 import prisma from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(req) {
+export async function POST(req:Request) {
   try {
     const session = await auth.api.getSession({ headers: req.headers });
     const userId = session?.user?.id;
@@ -43,5 +43,42 @@ export async function POST(req) {
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+
+
+export async function GET(req: Request) {
+  try {
+    const session = await auth.api.getSession({ headers: req.headers });
+
+    if (!session?.user) {
+      return NextResponse.json(
+        { error: "خطا در احراز هویت" },
+        { status: 401 }
+      );
+    }
+
+    const userId = session.user.id;
+
+    const orders = await prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      include: {
+        orderItems: {
+          include: {
+            coffee: true,
+          }
+        },
+        address:true
+      },
+    });
+
+    return NextResponse.json(orders, { status: 200 });
+  } catch (err) {
+    console.error("ORDER API ERROR:", err);
+    return NextResponse.json(
+      { error: "خطا در دریافت سفارشات" },
+      { status: 500 }
+    );
   }
 }
