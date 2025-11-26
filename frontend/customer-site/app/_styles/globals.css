@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom scrollbar hidin */
+.hidden-scroll {
+  scrollbar-width: none; /* Firefox */
+}
+
+.hidden-scroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
 @font-face {
   font-family: "IRANSans";
   src: url("/fonts/IRANSans.ttf") format("ttf");
