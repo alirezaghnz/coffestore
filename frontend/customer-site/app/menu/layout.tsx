@@ -9,7 +9,7 @@ export default function MenuLayout({
   return (
     <>
       <Header />
-      <main className=" pt-[150px]">{children}</main>
+      <main className=" pt-[90px]">{children}</main>
       <Footer />
     </>
   );

@@ -3,49 +3,90 @@ import Image from "next/image";
 import { useCartStore } from "../_store/useCartStore";
 import { ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import CoffeeFilters from "./CoffeeFilters";
 
-export default function CoffeeMenu({ coffees }) {
+type Coffee = {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+  category?: string;
+};
+
+export default function CoffeeMenu({ coffees }: { coffees: Coffee[] }) {
   const addToCart = useCartStore((state) => state.addToCart);
+
+  const [filter, setFilter] = useState({
+    price: 200000,
+    category: "",
+  });
+
+  // filter coffees based on filter state
+  const filteredCoffees = coffees.filter((c) => {
+    const priceCheck = Number(c.price) <= filter.price;
+    const categoryCheck = filter.category
+      ? c.category === filter.category
+      : true;
+    return priceCheck && categoryCheck;
+  });
+
   return (
-    <main className="flex flex-col lg:grid lg:grid-cols-5 gap-4 px-8">
-      {coffees.map((coffee) => (
-        <motion.div
-          className="flex justify-center items-center py-5 border-l rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-#E6D5C3 border"
-          key={coffee.id}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: coffee.id * 0.1 }}
-        >
-          <div className="flex flex-col items-center gap-3 px-2">
-            <Image
-              src={coffee.image}
-              alt={coffee.name}
-              width={300}
-              height={300}
-              className="rounded-lg hover:scale-105 transition-transform duration-300"
-            />
-            <span className="mt-2 text-xl">{coffee.name}</span>
-            <p className="text-#5B4636 mt-2 mb-2 text-sm items-center">
-              {coffee.description}
-            </p>
-            <div className="grid lg:flex gap-[30px] lg:gap-[70px] mt-4">
-              <span className="flex text-coffee-700 items-center justify-center">
-                {" "}
-                {coffee.price} تومان
-              </span>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => addToCart(coffee)}
-                className="flex w-[300px] lg:w-auto justify-center items-center rounded-md lg:rounded-full py-2 gap-2 px-6 text-white text-sm bg-[#8B5E3C]"
-              >
-                خرید
-                <ShoppingCart size={16} />
-              </motion.button>
+    <main className="px-8 py-10">
+      <CoffeeFilters onFilter={setFilter} />
+
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {filteredCoffees.map((coffee, index) => (
+          <motion.div
+            key={coffee.id}
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.08 }}
+            className="bg-[#FAF4EF] border border-[#E8DDD2] rounded-2xl shadow-md hover:shadow-xl 
+            transition-all duration-300 overflow-hidden flex flex-col"
+          >
+            <div className="relative w-full h-64 overflow-hidden">
+              <Image
+                src={coffee.image}
+                alt={coffee.name}
+                fill
+                className="object-cover hover:scale-110 transition-transform duration-500"
+              />
             </div>
-          </div>
-        </motion.div>
-      ))}
+
+            <div className="flex flex-col flex-grow p-5">
+              <h3 className="text-xl font-semibold text-[#4B3A29]">
+                {coffee.name}
+              </h3>
+
+              <p className="text-[#6A5444] text-sm mt-2 line-clamp-3 leading-relaxed">
+                {coffee.description}
+              </p>
+
+              <div className="mt-auto flex items-center justify-between pt-5">
+                <span className="text-lg font-bold text-[#8B5E3C]">
+                  {Number(coffee.price).toLocaleString("fa-IR")} تومان
+                </span>
+
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => addToCart(coffee)}
+                  className="flex w-[320px] lg:w-[200px] justify-center items-center 
+                    rounded-full py-3 gap-3 px-8 
+                    text-white text-base font-semibold 
+                    bg-gradient-to-r from-[#8B5E3C] to-[#A97452]
+                    shadow-md hover:shadow-xl transition-all duration-300"
+                >
+                  خرید
+                  <ShoppingCart size={20} />
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </section>
     </main>
   );
 }
