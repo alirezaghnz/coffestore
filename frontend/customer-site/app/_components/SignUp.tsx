@@ -38,7 +38,7 @@ export default function SignUp() {
     //  console.log(data);
   }
   return (
-    <div className="bg-white shadow-lg rounded p-8 w-[600px] ">
+    <div className="bg-white/20 backdrop-blur-md shadow-lg rounded-lg p-8 w-[400px]">
       <h1 className="text-2xl font-bold text-center mb-6">
         ایجاد و ورود به حساب کاربری
       </h1>

@@ -15,8 +15,8 @@ const signUpSchema = z.object({
 type SignInForm = z.infer<typeof signUpSchema>;
 export default function Login() {
   const router = useRouter();
-  const searchParams = useSearchParams()
-  const redirect = searchParams.get("redirect") || "/"
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/";
   const { register, handleSubmit } = useForm<SignInForm>();
   async function handle(data: SignInForm) {
     await authClient.signIn.email(
@@ -32,7 +32,7 @@ export default function Login() {
     );
   }
   return (
-    <div className="bg-white shadow-lg rounded-lg p-8 w-[600px]">
+    <div className=" bg-white/20 backdrop-blur-md shadow-lg rounded-lg p-8 w-[400px]">
       <h1 className="text-2xl font-bold text-center mt-5 mb-6">
         ورود به حساب کاربری
       </h1>
