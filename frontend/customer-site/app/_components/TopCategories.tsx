@@ -14,18 +14,18 @@ export default function TopCategories() {
             <p className=" text-gray-300 mt-10">مشاهده بیشتر</p>
           </div>
         </div>
-        <div className=" relative bg-[url('/header.jpg')]  rotate-2 bg-cover bg-center h-[300px] rounded-lg">
+        <div className=" relative bg-[url('/header2.jpg')]  rotate-2 bg-cover bg-center h-[300px] rounded-lg">
           <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center rounded-lg">
             <span className="text-4xl text-white text-center items-center">
-              اسپرسو دمی
+              اسپرسو دوبل
             </span>
             <p className=" text-gray-300 mt-10">مشاهده بیشتر</p>
           </div>
         </div>
-        <div className="relative bg-[url('/header.jpg')] rotate-2  bg-cover bg-center h-[300px] rounded-lg">
+        <div className="relative bg-[url('/header3.jpg')] rotate-2  bg-cover bg-center h-[300px] rounded-lg">
           <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center rounded-lg">
             <span className="text-4xl text-white text-center items-center">
-              اسپرسو دمی
+              کافی لته
             </span>
             <p className=" text-gray-300 mt-10">مشاهده بیشتر</p>
           </div>
