@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 import { PlusCircle } from "lucide-react";
 import AddressCard from "./_ui/AddressCart";
 import AddressModal from "./_ui/AddressModal";
 import AddAddressForm from "./_ui/AddressForm";
-
+import useClickOutside from "@/app/hooks/useClickOutside";
 
 export default function AddressesPage() {
   const [addresses, setAddresses] = useState([]);
@@ -27,14 +27,13 @@ export default function AddressesPage() {
   return (
     <div className="max-w-4xl mx-auto mt-1 p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">آدرس‌های من</h1>
-      
+        <h1 className="text-lg md:text-3xl font-bold">آدرس‌های من</h1>
 
         <button
           onClick={() => setOpenAdd(true)}
-          className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-xl"
+          className="flex items-center gap-2 text-xs md:text-lg bg-black text-white px-2 md:px-4 py-1 md:py-2 rounded-xl"
         >
-          <PlusCircle />
+          <PlusCircle className="w-4 md:w-8" />
           افزودن آدرس جدید
         </button>
       </div>
@@ -61,7 +60,10 @@ export default function AddressesPage() {
       )}
 
       {openAdd && (
-        <AddAddressForm close={() => setOpenAdd(false)} refresh={fetchAddresses} />
+        <AddAddressForm
+          close={() => setOpenAdd(false)}
+          refresh={fetchAddresses}
+        />
       )}
     </div>
   );
