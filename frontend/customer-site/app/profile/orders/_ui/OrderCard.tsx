@@ -7,30 +7,30 @@ import { ChevronDown, XCircle, CheckCircle, Clock } from "lucide-react";
 export default function OrderCard({ order, cancelOrder }: any) {
   const [open, setOpen] = useState(false);
 
-const statusText =
-  order.status === "PAID"
-    ? "پرداخت شده"
-    : order.status === "PENDING"
-    ? "در انتظار پرداخت"
-    : order.status === "CANCELLED"
-    ? "لغو شده"
-    : order.status;
+  const statusText =
+    order.status === "PAID"
+      ? "پرداخت شده"
+      : order.status === "PENDING"
+        ? "در انتظار پرداخت"
+        : order.status === "CANCELLED"
+          ? "لغو شده"
+          : order.status;
 
-const statusColor =
-  order.status === "PAID"
-    ? "text-green-500"
-    : order.status === "PENDING"
-    ? "text-orange-400"
-    : "text-red-500";
+  const statusColor =
+    order.status === "PAID"
+      ? "text-green-500"
+      : order.status === "PENDING"
+        ? "text-orange-400"
+        : "text-red-500";
 
-const statusIcon =
-  order.status === "PAID" ? (
-    <CheckCircle className="w-5 h-5 text-green-500" />
-  ) : order.status === "PENDING" ? (
-    <Clock className="w-5 h-5 text-orange-400" />
-  ) : (
-    <XCircle className="w-5 h-5 text-red-500" />
-  );
+  const statusIcon =
+    order.status === "PAID" ? (
+      <CheckCircle className="w-5 h-5 text-green-500" />
+    ) : order.status === "PENDING" ? (
+      <Clock className="w-5 h-5 text-orange-400" />
+    ) : (
+      <XCircle className="w-4 md:w-5 h-4 md:h-5 text-red-500" />
+    );
 
   return (
     <motion.div
@@ -43,7 +43,6 @@ const statusIcon =
         rounded-2xl p-5 shadow-lg relative overflow-hidden
       "
     >
-    
       <div
         className="absolute inset-0 rounded-2xl pointer-events-none opacity-25"
         style={{
@@ -54,7 +53,7 @@ const statusIcon =
 
       <div className="relative flex justify-between">
         <div>
-          <p className="font-semibold text-lg text-gray-800">
+          <p className="font-semibold text-sm md:text-lg text-gray-800">
             سفارش #{order.orderNumber}
           </p>
 
@@ -68,18 +67,17 @@ const statusIcon =
           </p>
         </div>
 
-        <p className="font-bold text-2xl text-gray-900">
+        <p className="font-bold text-sm md:text-2xl text-gray-900">
           {Number(order.totalAmout).toLocaleString("fa-IR")}{" "}
           <span className="text-base text-gray-600">تومان</span>
         </p>
       </div>
 
-     
       {order.status === "PENDING" && (
         <motion.button
           whileTap={{ scale: 0.9 }}
           className="
-            mt-4 px-4 py-2 rounded-xl 
+            mt-4 px-2 md:px-4 py-1 md:py-2 rounded-xl 
             border border-red-300 text-red-600 
             bg-red-50 hover:bg-red-100
             transition font-medium
@@ -90,7 +88,6 @@ const statusIcon =
         </motion.button>
       )}
 
-      
       <button
         onClick={() => setOpen(!open)}
         className="w-full mt-4 flex justify-between items-center text-gray-800"
@@ -132,7 +129,8 @@ const statusIcon =
                 </div>
 
                 <p className="font-bold text-gray-800">
-                  {(Number(item.price) * item.quantity).toLocaleString("fa-IR")} تومان
+                  {(Number(item.price) * item.quantity).toLocaleString("fa-IR")}{" "}
+                  تومان
                 </p>
               </motion.div>
             ))}
