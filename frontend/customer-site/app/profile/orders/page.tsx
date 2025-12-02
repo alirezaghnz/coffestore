@@ -85,7 +85,7 @@ export default function UserOrdersPage() {
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-xl font-bold mb-6">سفارش‌های من</h1>
 
-      <div className="flex gap-1 scrollbar-hide mb-6 pb-2">
+      <div className="flex gap-1 scrollbar-hide overflow-y-auto mb-6 pb-2">
         {tabs.map((tab) => (
           <button
             key={tab.value}
