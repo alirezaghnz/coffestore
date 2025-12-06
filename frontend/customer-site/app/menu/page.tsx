@@ -1,9 +1,9 @@
-import { getAllCoffees } from "../_actions/coffee";
+"use client";
 import CoffeeMenu from "../_components/CoffeeMenu";
+import { useCoffees } from "./_hooks/useCoffees";
 
-export const revalidate = 3600;
-export default async function Page() {
-  const coffees = await getAllCoffees();
+export default function Page() {
+  const { data: coffees = [] } = useCoffees();
 
   return (
     <>

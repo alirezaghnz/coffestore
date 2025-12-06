@@ -1,5 +1,8 @@
-import type { Metadata } from "next";
 import "@/app/_styles/globals.css";
+import { Toaster } from "react-hot-toast";
+import type { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
+import ReactQueryProvider from "./_providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "پمو کافی",
@@ -13,7 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="flex flex-col font-iransans">{children}</body>
+      <body className="flex flex-col font-iransans">
+        <ReactQueryProvider> {children}</ReactQueryProvider>
+
+        <NextTopLoader color="#3b82f6" showSpinner={false} height={5} />
+        <Toaster />
+      </body>
     </html>
   );
 }
