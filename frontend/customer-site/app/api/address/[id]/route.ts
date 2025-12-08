@@ -8,10 +8,11 @@ export async function DELETE(
 ) {
   try {
     const session = await auth.api.getSession({ headers: req.headers });
+
     if (!session?.user)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    //for delete address in db with id 
+    //for delete address in db with id
     await prisma.Address.delete({
       where: { id: params.id },
     });

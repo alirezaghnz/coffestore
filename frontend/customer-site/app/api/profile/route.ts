@@ -11,6 +11,7 @@ export async function GET(req: Request) {
 
   const userId = session.user.id;
 
+  // Fetch user with default address
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: {
@@ -24,6 +25,7 @@ export async function GET(req: Request) {
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
 
+  // Return user info along with default address
   return NextResponse.json({
     name: user.name,
     phone: user.phone,

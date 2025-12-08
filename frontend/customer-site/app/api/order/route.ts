@@ -2,7 +2,7 @@ import auth from "@/app/lib/auth";
 import prisma from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function POST(req:Request) {
+export async function POST(req: Request) {
   try {
     const session = await auth.api.getSession({ headers: req.headers });
     const userId = session?.user?.id;
@@ -16,11 +16,11 @@ export async function POST(req:Request) {
     if (!cartItems?.length)
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
 
-   
     const totalAmount = cartItems.reduce(
       (sum, item) => sum + Number(item.price) * item.quantity,
       0
     );
+    // Generate a simple order number unique
     const orderNumber = "ORDR-" + Math.floor(100000 + Math.random() * 900000);
 
     const order = await prisma.order.create({
@@ -30,7 +30,7 @@ export async function POST(req:Request) {
         orderNumber,
         totalAmout: String(totalAmount),
         orderItems: {
-          create: cartItems.map((item) => ({
+          create: cartItems.map((item: any) => ({
             coffeeId: item.id,
             quantity: item.quantity,
             price: item.price,
@@ -46,16 +46,12 @@ export async function POST(req:Request) {
   }
 }
 
-
 export async function GET(req: Request) {
   try {
     const session = await auth.api.getSession({ headers: req.headers });
 
     if (!session?.user) {
-      return NextResponse.json(
-        { error: "خطا در احراز هویت" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "خطا در احراز هویت" }, { status: 401 });
     }
 
     const userId = session.user.id;
@@ -67,9 +63,9 @@ export async function GET(req: Request) {
         orderItems: {
           include: {
             coffee: true,
-          }
+          },
         },
-        address:true
+        address: true,
       },
     });
 
